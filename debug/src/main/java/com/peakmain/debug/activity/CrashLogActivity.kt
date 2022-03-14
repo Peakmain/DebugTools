@@ -1,5 +1,6 @@
 package com.peakmain.debug.activity
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -9,6 +10,7 @@ import com.peakmain.debug.adapter.CrashLogAdapter
 import com.peakmain.debug.base.BaseDebugActivity
 import com.peakmain.debug.databinding.DebugActivityCrashLogBinding
 import com.peakmain.debug.viewmodel.CrashLogViewModel
+import com.peakmain.ui.utils.FileUtils
 
 /**
  * author ：Peakmain
@@ -52,9 +54,18 @@ class CrashLogActivity(override val layoutId: Int = R.layout.debug_activity_cras
                     .setTitle("清空日志")
                     .setMessage("是否确定清空所有日志")
                     .setNegativeButton("取消"
-                    ) { dialog, _ -> dialog?.dismiss() }.setPositiveButton("确定"
-                    ) { dialog, _ -> dialog.dismiss() }
-                    .show()
+                    ) { dialog, _ -> dialog?.dismiss() }
+                    .setPositiveButton("确定"
+                    ) { dialog, _ ->
+                        val files = mViewModel.crashFiles
+                        files.filter {
+                            files.isNotEmpty()
+                        }.forEach {
+                            FileUtils.deleteFile(it)
+                        }
+                        mBinding.recyclerView.adapter?.notifyItemRangeRemoved(0, files.size)
+                        dialog.dismiss()
+                    }.show()
             }.create()
 
     }
