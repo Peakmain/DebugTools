@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -19,14 +20,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String","BUILD_TIME","\""+buildTime()+"\"")
-            buildConfigField ("String", "VERSION_NAME", "\""+defaultConfig.versionName+"\"")
-            buildConfigField ("String", "VERSION_CODE", "\""+defaultConfig.versionCode+"\"")
+            buildConfigField("String", "BUILD_TIME", "\"" + buildTime() + "\"")
+            buildConfigField("String", "VERSION_NAME", "\"" + defaultConfig.versionName + "\"")
+            buildConfigField("String", "VERSION_CODE", "\"" + defaultConfig.versionCode + "\"")
         }
-        debug{
-            buildConfigField("String","BUILD_TIME","\""+buildTime()+"\"")
-            buildConfigField ("String", "VERSION_NAME", "\""+defaultConfig.versionName+"\"")
-            buildConfigField ("String", "VERSION_CODE", "\""+defaultConfig.versionCode+"\"")
+        debug {
+            buildConfigField("String", "BUILD_TIME", "\"" + buildTime() + "\"")
+            buildConfigField("String", "VERSION_NAME", "\"" + defaultConfig.versionName + "\"")
+            buildConfigField("String", "VERSION_CODE", "\"" + defaultConfig.versionCode + "\"")
         }
     }
     compileOptions {
@@ -36,17 +37,18 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dataBinding {
+        enabled true
+    }
 }
-def buildTime(){
-    return new Date().format("YYYY:MM:DD HH:mm:ss",TimeZone.getTimeZone("GMT+08:00"))
+
+static def buildTime() {
+    return new Date().format("YYYY:MM:DD HH:mm:ss", TimeZone.getTimeZone("GMT+08:00"))
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar',"*.aar"])
+    implementation fileTree(dir: 'libs', include: ['*.jar', "*.aar"])
     implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.github.Peakmain:BasicLibrary:1.0.3'
 }

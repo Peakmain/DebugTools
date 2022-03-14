@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2557291666666667" />
+        <entry key="debug/src/main/res/drawable/ic_debug_clear_all_24.xml" value="0.19907407407407407" />
         <entry key="debug/src/main/res/drawable/shape_background_debug_tool.xml" value="0.1" />
         <entry key="debug/src/main/res/drawable/shape_divider_debug_tool.xml" value="0.1" />
         <entry key="debug/src/main/res/layout/debug_activity_crash_log.xml" value="0.1" />

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.peakmain.debug.activity.CrashLogActivity
+import com.peakmain.ui.utils.fps.FpsMonitorUtils
 
 /**
  * author ：Peakmain
@@ -21,6 +22,7 @@ class DebugTools {
 
 
     fun buildEnvironment(): String = "构建环境: " + if (BuildConfig.DEBUG) "测试环境" else "正式环境"
+
     fun buildDevice(): String =
          "设备信息:" + Build.BRAND + "-" + Build.VERSION.SDK_INT + "-" + Build.CPU_ABI
 
@@ -30,4 +32,9 @@ class DebugTools {
         val intent = Intent(context, CrashLogActivity::class.java)
         context.startActivity(intent)
     }
+    @PDebug(name = "打开/关闭Fps", desc = "打开后可以查看页面实时的FPS")
+    fun toggleFps(context: Context) {
+        FpsMonitorUtils.toggle()
+    }
+
 }
