@@ -6,7 +6,7 @@
     <application>
         <provider
             android:name=".DebugFileProvider"
-            android:authorities="${applicationId}.fileProvider"
+            android:authorities="${applicationId}.peakmain.debug.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
 

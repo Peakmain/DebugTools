@@ -46,7 +46,7 @@ class CrashLogAdapter(val context: Context, private val crashFiles: Array<File>)
             val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 DebugFileProvider.getUriForFile(
                     context,
-                    "${context.packageName}.fileProvider",
+                    "${context.packageName}.peakmain.debug.fileProvider",
                     file
                 )
             } else {
