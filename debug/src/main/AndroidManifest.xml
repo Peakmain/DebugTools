@@ -4,18 +4,6 @@
     package="com.peakmain.debug">
 
     <application>
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/debug_provider_paths">
-
-            </meta-data>
-        </provider>
         <activity android:name=".activity.CrashLogActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
