@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.peakmain.debug.activity.CrashLogActivity
+import com.peakmain.debug.annotation.PDebug
 import com.peakmain.ui.utils.fps.FpsMonitorUtils
 
 /**
@@ -27,7 +28,7 @@ class DebugTools {
          "设备信息:" + Build.BRAND + "-" + Build.VERSION.SDK_INT + "-" + Build.CPU_ABI
 
 
-    @PDebug(name = "查看Crash日志", desc = "可以一键分享给开发同学，迅速定位偶现问题")
+    @PDebug(name = "查看Crash日志", desc = "可以一键分享给Android开发，迅速定位偶现问题")
     fun crashLog(context: Context) {
         val intent = Intent(context, CrashLogActivity::class.java)
         context.startActivity(intent)
@@ -36,5 +37,8 @@ class DebugTools {
     fun toggleFps(context: Context) {
         FpsMonitorUtils.toggle()
     }
-
+    @PDebug(name = "生成bug", desc = "生成bug，方便测试查看crash日志")
+    fun createCrash(context: Context) {
+       5/0
+    }
 }

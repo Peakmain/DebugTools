@@ -63,6 +63,7 @@ class CrashLogActivity(override val layoutId: Int = R.layout.debug_activity_cras
                         }.forEach {
                             FileUtils.deleteFile(it)
                         }
+
                         mBinding.recyclerView.adapter?.notifyItemRangeRemoved(0, files.size)
                         dialog.dismiss()
                     }.show()
