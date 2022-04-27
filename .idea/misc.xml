@@ -17,6 +17,7 @@
         <entry key="debug/src/main/res/layout/debug_navigation_bar.xml" value="0.1" />
         <entry key="debug/src/main/res/layout/debug_recycler_tool_item.xml" value="0.1" />
         <entry key="debug/src/main/res/layout/hi_debug_tool.xml" value="0.12436676798378926" />
+        <entry key="debug/src/main/res/xml/debug_provider_paths.xml" value="0.13125" />
         <entry key="debugtools/src/main/res/layout/activity_main.xml" value="0.24166666666666667" />
       </map>
     </option>
