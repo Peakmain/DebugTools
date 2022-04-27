@@ -3,7 +3,10 @@ package com.peakmain.debug
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.content.ContextCompat
@@ -12,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.peakmain.debug.annotation.PDebug
 import java.lang.reflect.Method
-import java.util.*
 
 /**
  * author ：Peakmain
@@ -128,7 +130,7 @@ data class DebugToolBean(
     val desc: String,
     val method: Method,
     val enable: Boolean,
-    val target: Any,
+    val target: Any
 ) {
     fun invoke(context: Context) {
         method.invoke(target, context)

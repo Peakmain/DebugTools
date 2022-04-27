@@ -1,6 +1,6 @@
 package com.peakmain.debug.activity
 
-import android.content.DialogInterface
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -49,8 +49,8 @@ class CrashLogActivity(override val layoutId: Int = R.layout.debug_activity_cras
             .setDisplayHomeAsUpEnabled(true)
             .setRightResId(R.drawable.ic_debug_clear_all_24)
             .showRightView()
-            .setRightViewClickListener {
-                AlertDialog.Builder(this)
+            .setRightViewClickListener(View.OnClickListener { v ->
+                AlertDialog.Builder(v.context)
                     .setTitle("清空日志")
                     .setMessage("是否确定清空所有日志")
                     .setNegativeButton("取消"
@@ -67,7 +67,7 @@ class CrashLogActivity(override val layoutId: Int = R.layout.debug_activity_cras
                         mBinding.recyclerView.adapter?.notifyItemRangeRemoved(0, files.size)
                         dialog.dismiss()
                     }.show()
-            }.create()
+            }).create()
 
     }
 
