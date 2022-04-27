@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.peakmain.debug.DebugFileProvider
 import com.peakmain.debug.R
 import java.io.File
 
@@ -43,7 +44,7 @@ class CrashLogAdapter(val context: Context, private val crashFiles: Array<File>)
             intent.putExtra("body", "")
 
             val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                FileProvider.getUriForFile(
+                DebugFileProvider.getUriForFile(
                     context,
                     "${context.packageName}.fileProvider",
                     file
