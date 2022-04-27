@@ -1,6 +1,7 @@
 package com.peakmain.debug.base
 
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import com.peakmain.basiclibrary.base.activity.BaseActivity
 import com.peakmain.basiclibrary.base.viewmodel.BaseViewModel
@@ -28,6 +29,6 @@ abstract class BaseDebugActivity<T : ViewDataBinding, E : BaseViewModel> : BaseA
             .setRightResId(R.drawable.ic_debug_clear_all_24)
             .hideRightView()
             .hideLeftText()
-        StatusBarUtils.setStatusBar(this,true,statusColor = R.color.ui_color_2F73F6)
+        StatusBarUtils.setColor(this, ContextCompat.getColor(this,R.color.ui_color_2F73F6),255)
     }
 }
