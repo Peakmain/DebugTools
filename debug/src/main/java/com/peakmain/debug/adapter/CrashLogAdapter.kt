@@ -19,7 +19,7 @@ import java.io.File
  * mail:2726449200@qq.com
  * describe：
  */
-class CrashLogAdapter(val context: Context, private val crashFiles: Array<File>) :
+class CrashLogAdapter(val context: Context, private var crashFiles: Array<File>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return object : RecyclerView.ViewHolder(
@@ -61,5 +61,10 @@ class CrashLogAdapter(val context: Context, private val crashFiles: Array<File>)
             context.startActivity(Intent.createChooser(intent, "分享Crash 日志文件"))
         }
     }
+    fun clearData() {
+        crashFiles = arrayOf()
+        notifyDataSetChanged()
+    }
+
 
 }

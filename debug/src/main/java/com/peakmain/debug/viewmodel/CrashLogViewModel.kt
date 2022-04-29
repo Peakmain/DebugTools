@@ -2,6 +2,7 @@ package com.peakmain.debug.viewmodel
 
 import com.peakmain.basiclibrary.base.viewmodel.BaseViewModel
 import com.peakmain.debug.utils.CrashUtils
+import java.io.File
 
 /**
  * author ：Peakmain
@@ -9,10 +10,10 @@ import com.peakmain.debug.utils.CrashUtils
  * mail:2726449200@qq.com
  * describe：
  */
-class CrashLogViewModel:BaseViewModel() {
+class CrashLogViewModel : BaseViewModel() {
 
-    val crashFiles = CrashUtils.getCrashFiles()
+    lateinit var crashFiles: Array<File>
     override fun initModel() {
-
+        crashFiles = CrashUtils.getCrashFiles()
     }
 }

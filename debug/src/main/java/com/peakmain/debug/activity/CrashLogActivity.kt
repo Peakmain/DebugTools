@@ -11,6 +11,8 @@ import com.peakmain.debug.base.BaseDebugActivity
 import com.peakmain.debug.databinding.DebugActivityCrashLogBinding
 import com.peakmain.debug.viewmodel.CrashLogViewModel
 import com.peakmain.ui.utils.FileUtils
+import com.peakmain.ui.utils.LogUtils
+import java.io.File
 
 /**
  * author ：Peakmain
@@ -20,6 +22,8 @@ import com.peakmain.ui.utils.FileUtils
  */
 class CrashLogActivity(override val layoutId: Int = R.layout.debug_activity_crash_log) :
     BaseDebugActivity<DebugActivityCrashLogBinding, CrashLogViewModel>() {
+    lateinit var crashFiles: Array<File>
+    var mAdapter: CrashLogAdapter? = null
     override fun initView() {
         initToolbar()
         val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
@@ -28,10 +32,11 @@ class CrashLogActivity(override val layoutId: Int = R.layout.debug_activity_cras
                 this,
                 R.drawable.shape_divider_debug_tool
             )!!)
-        val crashFiles = mViewModel.crashFiles
+        crashFiles = mViewModel.crashFiles
         mBinding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@CrashLogActivity)
-            adapter = CrashLogAdapter(this@CrashLogActivity, crashFiles)
+            mAdapter = CrashLogAdapter(this@CrashLogActivity, crashFiles)
+            adapter = mAdapter
             if (crashFiles.isEmpty()) {
                 showEmptyView()
             } else {
@@ -57,14 +62,14 @@ class CrashLogActivity(override val layoutId: Int = R.layout.debug_activity_cras
                     ) { dialog, _ -> dialog?.dismiss() }
                     .setPositiveButton("确定"
                     ) { dialog, _ ->
-                        val files = mViewModel.crashFiles
-                        files.filter {
-                            files.isNotEmpty()
+                        crashFiles.filter {
+                            crashFiles.isNotEmpty()
                         }.forEach {
-                            FileUtils.deleteFile(it)
+                            val isSuccess = FileUtils.deleteFile(it)
+                            LogUtils.e("是否成功：$isSuccess")
                         }
-
-                        mBinding.recyclerView.adapter?.notifyItemRangeRemoved(0, files.size)
+                        mAdapter?.clearData()
+                        mBinding.recyclerView.showEmptyView()
                         dialog.dismiss()
                     }.show()
             }).create()
