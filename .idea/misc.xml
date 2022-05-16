@@ -8,13 +8,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2557291666666667" />
+        <entry key="app/src/main/res/xml/network_security_config.xml" value="0.1" />
         <entry key="debug/src/main/res/drawable/ic_debug_clear_all_24.xml" value="0.19907407407407407" />
         <entry key="debug/src/main/res/drawable/shape_background_debug_tool.xml" value="0.1" />
         <entry key="debug/src/main/res/drawable/shape_divider_debug_tool.xml" value="0.1" />
         <entry key="debug/src/main/res/layout/debug_activity_crash_log.xml" value="0.1" />
         <entry key="debug/src/main/res/layout/debug_crash_log_recycler_item.xml" value="0.12436676798378926" />
         <entry key="debug/src/main/res/layout/debug_dialog_tool.xml" value="0.1" />
+        <entry key="debug/src/main/res/layout/debug_http_logging.xml" value="0.2557291666666667" />
         <entry key="debug/src/main/res/layout/debug_navigation_bar.xml" value="0.1" />
+        <entry key="debug/src/main/res/layout/debug_recycler_crash_log_item.xml" value="0.2557291666666667" />
+        <entry key="debug/src/main/res/layout/debug_recycler_http_logging.xml" value="0.2557291666666667" />
         <entry key="debug/src/main/res/layout/debug_recycler_tool_item.xml" value="0.1" />
         <entry key="debug/src/main/res/layout/hi_debug_tool.xml" value="0.12436676798378926" />
         <entry key="debug/src/main/res/xml/debug_provider_paths.xml" value="0.13125" />

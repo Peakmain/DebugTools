@@ -18,6 +18,8 @@
         </provider>
         <activity android:name=".activity.CrashLogActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".log.HttpLoggingActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

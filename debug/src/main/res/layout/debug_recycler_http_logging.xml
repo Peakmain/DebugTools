@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+   <variable
+       name="vm"
+       type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_16"
+            android:textColor="@color/ui_color_333333"
+            android:paddingRight="@dimen/dimen_10"
+            android:paddingLeft="@dimen/dimen_10"
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingBottom="@dimen/dimen_10"
+            android:text="@{vm}"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/ui_color_9B9B9B"
+            android:layout_height="@dimen/dimen_0_5" />
+    </LinearLayout>
+</layout>
