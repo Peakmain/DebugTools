@@ -2,6 +2,7 @@ package com.peakmain.debug.log
 
 import android.util.Log
 import com.peakmain.basiclibrary.config.BasicLibraryConfig
+import com.peakmain.debug.bean.HttpLoggingBean
 import com.peakmain.debug.viewmodel.HttpLoggingViewModel
 import com.peakmain.ui.utils.HandlerUtils
 import okhttp3.*
@@ -28,7 +29,7 @@ class HttpLoggingInterceptor : Interceptor {
     @Volatile
     private var headersToRedact = emptySet<String>()
     private var mViewModel: HttpLoggingViewModel? = null
-    private var mHttplogginList: MutableList<String>? = null
+    private var mHttplogginList: MutableList<HttpLoggingBean>? = null
 
     init {
         mViewModel = BasicLibraryConfig.getInstance().getApp().getViewModelProvider()
@@ -52,20 +53,19 @@ class HttpLoggingInterceptor : Interceptor {
         val hasRequestBody = requestBody != null
         val connection = chain.connection()
         var result = "\n————————请求Start————————\n"
+        val mHttpLoggingBean = HttpLoggingBean()
+        mHttpLoggingBean.requestStartMessage =
+            request.method() + ' ' + request.url() + if (connection != null) " " + connection.protocol() else ""
 
-        result += ("--> "
-                + request.method()
-                + ' ' + request.url()
-                + if (connection != null) " " + connection.protocol() else "")
         if (hasRequestBody) {
-            result += " (" + requestBody!!.contentLength() + "-byte body)\n"
+            mHttpLoggingBean.requestStartMessage += "(\" + requestBody!!.contentLength() + \"-byte body)"
         }
         if (hasRequestBody) {
             if (requestBody!!.contentType() != null) {
-                result += "Content-Type: ${requestBody.contentType()}\n"
+                mHttpLoggingBean.contentType = "Content-Type: ${requestBody.contentType()}"
             }
             if (requestBody.contentLength() != -1L) {
-                result += "Content-Length: ${requestBody.contentLength()}\n"
+                mHttpLoggingBean.contentLength = "Content-Length: ${requestBody.contentLength()}"
             }
             val headers = request.headers()
             var i = 0
@@ -76,7 +76,7 @@ class HttpLoggingInterceptor : Interceptor {
                 if (!"Content-Type".equals(name,
                         ignoreCase = true) && !"Content-Length".equals(name, ignoreCase = true)
                 ) {
-                    result = logHeader(headers, i, result)
+                    logHeader(headers, i,mHttpLoggingBean)
                 }
                 i++
             }
@@ -113,16 +113,16 @@ class HttpLoggingInterceptor : Interceptor {
         val responseBody = response.body()
         val contentLength = responseBody!!.contentLength()
         val bodySize = if (contentLength != -1L) "$contentLength-byte" else "unknown-length"
-        result += "\n<-- ${response.code()}(" + if (response.message()
+        mHttpLoggingBean.responseContent = "<-- ${response.code()}(" + if (response.message()
                 .isEmpty()
         ) "" else ' ' + response.message() + ")请求的url链接: ${
             response.request().url()
-        }" + " (" + tookMs + "ms," + ("$bodySize body") + ')' + "\n"
+        }" + " (" + tookMs + "ms," + ("$bodySize body") + ')'
         val headers = response.headers()
         var i = 0
         val count = headers.size()
         while (i < count) {
-            logHeader(headers, i, result)
+            logHeader(headers, i, mHttpLoggingBean)
             i++
         }
         if (!HttpHeaders.hasBody(response)) {
@@ -134,7 +134,7 @@ class HttpLoggingInterceptor : Interceptor {
             source.request(Long.MAX_VALUE) // Buffer the entire body.
             var buffer = source.buffer()
             var gzippedLength: Long? = null
-            result += "返回结果："
+            mHttpLoggingBean.responseBody = "返回结果：\n"
             if ("gzip".equals(headers["Content-Encoding"], ignoreCase = true)) {
                 gzippedLength = buffer.size()
                 var gzippedResponseBody: GzipSource? = null
@@ -152,31 +152,33 @@ class HttpLoggingInterceptor : Interceptor {
                 charset = contentType.charset(UTF8)
             }
             if (!isPlaintext(buffer)) {
-                result += "<-- END HTTP (binary \" + buffer.size() + \"-byte body omitted)\n"
+                mHttpLoggingBean.responseBody += "<-- END HTTP (binary \" + buffer.size() + \"-byte body omitted)\n"
                 return response
             }
             if (contentLength != 0L) {
-                result += buffer.clone().readString(charset) + "\n"
+                mHttpLoggingBean.responseBody += buffer.clone().readString(charset) + "\n"
             }
-            result += if (gzippedLength != null) {
-                "<-- END HTTP (" + buffer.size() + "-byte, " + gzippedLength + "-gzipped-byte body)\n"
+            //mHttpLoggingBean.responseBody = FormatJson.format(mHttpLoggingBean.responseBody)
+            /* mHttpLoggingBean.responseBody += if (gzippedLength != null) {
+                 "<-- END HTTP (" + buffer.size() + "-byte, " + gzippedLength + "-gzipped-byte body)\n"
 
-            } else {
-                "<-- END HTTP (" + buffer.size() + "-byte body)\n"
-            }
+             } else {
+                 "<-- END HTTP (" + buffer.size() + "-byte body)\n"
+             }*/
         }
         result += "————————请求End————————\n"
-        Log.e("TAG", result)
-        mHttplogginList?.add(result)
-        HandlerUtils.runOnUiThread(Runnable { mViewModel?.mLoggingMutableList?.value = mHttplogginList })
+        Log.e("treasure", mHttpLoggingBean.toString())
+        mHttplogginList?.add(mHttpLoggingBean)
+        HandlerUtils.runOnUiThread(Runnable {
+            mViewModel?.mLoggingMutableList?.value = mHttplogginList
+        })
         return response
     }
 
-    private fun logHeader(headers: Headers, i: Int, result: String): String {
-        var sb = result
+    private fun logHeader(headers: Headers, i: Int, mHttpLoggingBean: HttpLoggingBean) {
         val value = if (headersToRedact.contains(headers.name(i))) "██" else headers.value(i)
-        sb += headers.name(i) + ": " + value
-        return sb
+        mHttpLoggingBean.headInfo += headers.name(i) + ": " + value
+
     }
 
     companion object {

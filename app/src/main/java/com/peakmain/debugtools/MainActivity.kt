@@ -28,7 +28,17 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun success(t: Any) {
-                Log.e("TAG",t.toString())
+               // Log.e("TAG",t.toString())
+
+            }
+
+        })
+        RetrofitManager.createData(api.getListJson(1,294), object : ApiStatus<Any>() {
+            override fun error(exception: Exception) {
+            }
+
+            override fun success(t: Any) {
+               // Log.e("TAG",t.toString())
 
             }
 

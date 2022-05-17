@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.peakmain.debug.R
 import com.peakmain.debug.adapter.HttpLoggingAdapter
 import com.peakmain.debug.base.BaseDebugActivity
+import com.peakmain.debug.bean.HttpLoggingBean
 import com.peakmain.debug.databinding.DebugHttpLoggingBinding
 import com.peakmain.debug.viewmodel.HttpLoggingViewModel
 
@@ -19,25 +20,24 @@ import com.peakmain.debug.viewmodel.HttpLoggingViewModel
  */
 class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_logging) :
     BaseDebugActivity<DebugHttpLoggingBinding, HttpLoggingViewModel>() {
-    var mHttpLogList = ArrayList<String>()
     private var mAdapter: HttpLoggingAdapter? = null
 
     override fun initView() {
         initToolbar()
-        mAdapter = HttpLoggingAdapter(mHttpLogList)
+        mAdapter = HttpLoggingAdapter(mViewModel.mLoggingMutableList.value!!)
         mBinding.debugRecyclerView.apply {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(this@HttpLoggingActivity)
         }
         Log.e("TAG",mViewModel.toString())
         mViewModel.mLoggingMutableList.observe(this,
-            Observer<MutableList<String>> {
+            Observer<MutableList<HttpLoggingBean>> {
                 notifyDataChange(it)
             })
     }
 
-   private fun notifyDataChange(data: MutableList<String>) {
-        Log.e("TAG", data.toString())
+   private fun notifyDataChange(data: MutableList<HttpLoggingBean>) {
+        Log.e("TAG11", data.toString())
         mAdapter?.setData(data)
     }
     private fun initToolbar() {

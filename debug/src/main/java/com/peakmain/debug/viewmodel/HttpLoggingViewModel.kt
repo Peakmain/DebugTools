@@ -2,6 +2,7 @@ package com.peakmain.debug.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.peakmain.basiclibrary.base.viewmodel.BaseViewModel
+import com.peakmain.debug.bean.HttpLoggingBean
 
 /**
  * author ：Peakmain
@@ -10,7 +11,7 @@ import com.peakmain.basiclibrary.base.viewmodel.BaseViewModel
  * describe：
  */
 class HttpLoggingViewModel : BaseViewModel() {
-    var mLoggingMutableList: MutableLiveData<MutableList<String>> = MutableLiveData()
+    var mLoggingMutableList: MutableLiveData<MutableList<HttpLoggingBean>> = MutableLiveData()
     override fun initModel() {
 
     }

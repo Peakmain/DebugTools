@@ -1,34 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-   <variable
-       name="vm"
-       type="String" />
+
+        <variable
+            name="vm"
+            type="com.peakmain.debug.bean.HttpLoggingBean" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingLeft="@dimen/dimen_10"
+        android:paddingRight="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="请求Start"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:textColor="@color/ui_color_333333"
+            android:textSize="@dimen/font_size_18"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_text"
             android:layout_width="match_parent"
-            android:textSize="@dimen/font_size_16"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_14"
+            android:text="@{vm.requestStartMessage}"
             android:textColor="@color/ui_color_333333"
-            android:paddingRight="@dimen/dimen_10"
-            android:paddingLeft="@dimen/dimen_10"
-            android:paddingTop="@dimen/dimen_10"
-            android:paddingBottom="@dimen/dimen_10"
-            android:text="@{vm}"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/font_size_16" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="@{vm.responseContent}"
+            android:textColor="@color/ui_color_333333"
+            android:textSize="@dimen/font_size_16" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="@{vm.responseBody}"
+            android:lineSpacingMultiplier="1.2"
+            android:textColor="@color/ui_color_333333"
+            android:textSize="@dimen/font_size_16" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:text="请求End"
+            android:textColor="@color/ui_color_333333"
+            android:textSize="@dimen/font_size_15" />
 
         <View
             android:layout_width="match_parent"
-            android:background="@color/ui_color_9B9B9B"
-            android:layout_height="@dimen/dimen_0_5" />
+            android:layout_height="@dimen/dimen_0_5"
+            android:layout_marginTop="@dimen/dimen_5"
+            android:background="@color/ui_color_9B9B9B" />
     </LinearLayout>
 </layout>
