@@ -43,5 +43,14 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+        RetrofitManager.createData(api.loginUser("test","123456"),object :ApiStatus<Any>(){
+            override fun error(exception: Exception) {
+            }
+
+            override fun success(t: Any) {
+                Log.e("TAG",t.toString())
+            }
+
+        })
     }
 }

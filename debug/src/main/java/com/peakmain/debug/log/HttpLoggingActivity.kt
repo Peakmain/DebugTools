@@ -30,23 +30,27 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
             adapter = mAdapter
             layoutManager = LinearLayoutManager(this@HttpLoggingActivity)
         }
-        Log.e("TAG", mViewModel.toString())
-        mViewModel.mLoggingMutableList.observe(this,
-            Observer<MutableList<HttpLoggingBean>> {
-                notifyDataChange(it)
-            })
         val mutableList = mViewModel.mLoggingMutableList.value
-        if (mutableList != null&& mutableList.size>0) {
+        if (mutableList != null && mutableList.size > 0) {
             mBinding.tvHeader.text = mViewModel.mLoggingMutableList.value!![0].requestUrl
         }
+        mViewModel.mLoggingMutableList.observe(this,
+            Observer<MutableList<HttpLoggingBean>> {
+                if (mutableList != null && mutableList.size > 0) {
+                    mBinding.tvHeader.text = mViewModel.mLoggingMutableList.value!![0].requestUrl
+                }
+                notifyDataChange(it)
+            })
+
         mBinding.debugRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val manager = recyclerView.layoutManager as LinearLayoutManager
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     val findFirstVisibleItemPosition = manager.findFirstVisibleItemPosition()
-                    if (mutableList!= null && mutableList.size>0) {
-                        mBinding.tvHeader.text = mViewModel.mLoggingMutableList.value!![findFirstVisibleItemPosition].requestUrl
+                    if (mutableList != null && mutableList.size > 0) {
+                        mBinding.tvHeader.text =
+                            mViewModel.mLoggingMutableList.value!![findFirstVisibleItemPosition].requestUrl
                     }
                 }
             }
@@ -65,16 +69,8 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
             .setRightResId(R.drawable.ic_debug_clear_all_24)
             .showRightView()
             .setRightViewClickListener(View.OnClickListener { v ->
-                AlertDialog.Builder(v.context)
-                    .setTitle("清空日志")
-                    .setMessage("是否确定清空所有数据")
-                    .setNegativeButton("取消"
-                    ) { dialog, _ -> dialog?.dismiss() }
-                    .setPositiveButton("确定"
-                    ) { dialog, _ ->
-
-                        dialog.dismiss()
-                    }.show()
+                mViewModel.mLoggingMutableList.value =
+                    mViewModel.mLoggingMutableList.value?.asReversed()
             }).create()
 
     }

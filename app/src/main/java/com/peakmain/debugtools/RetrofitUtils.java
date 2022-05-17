@@ -46,7 +46,7 @@ public class RetrofitUtils {
 
             OkHttpClient client = builder.build();
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://www.wanandroid.com/")
+                    .baseUrl("https://www.wanandroid.com/")
                     //增加返回值为Gson的支持(以实体类返回)
 
                     .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().

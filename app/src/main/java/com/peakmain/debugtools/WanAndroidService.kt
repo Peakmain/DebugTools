@@ -1,11 +1,8 @@
 package com.peakmain.debugtools
 
-import com.peakmain.basiclibrary.network.status.ApiStatus
 import io.reactivex.Observable
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
-import java.util.*
+import retrofit2.http.*
+
 
 /**
  * author ：Peakmain
@@ -19,4 +16,11 @@ interface WanAndroidService {
 
     @GET("project/list/{id}/json/")
     fun getListJson(@Path("id") id: Int, @Query("cid") cid: Int): Observable<Any>
+
+    @FormUrlEncoded
+    @POST("user/login")
+    fun loginUser(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Observable<Any>
 }
