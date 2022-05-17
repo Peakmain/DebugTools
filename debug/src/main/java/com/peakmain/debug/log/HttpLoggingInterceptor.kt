@@ -54,6 +54,7 @@ class HttpLoggingInterceptor : Interceptor {
         val connection = chain.connection()
         var result = "\n————————请求Start————————\n"
         val mHttpLoggingBean = HttpLoggingBean()
+        mHttpLoggingBean.requestUrl = request.url().toString()
         mHttpLoggingBean.requestStartMessage =
             request.method() + ' ' + request.url() + if (connection != null) " " + connection.protocol() else ""
 
@@ -62,9 +63,11 @@ class HttpLoggingInterceptor : Interceptor {
         }
         if (hasRequestBody) {
             if (requestBody!!.contentType() != null) {
+                mHttpLoggingBean.headInfo += "Content-Type: ${requestBody.contentType()}"
                 mHttpLoggingBean.contentType = "Content-Type: ${requestBody.contentType()}"
             }
             if (requestBody.contentLength() != -1L) {
+                mHttpLoggingBean.headInfo += "Content-Length: ${requestBody.contentLength()}"
                 mHttpLoggingBean.contentLength = "Content-Length: ${requestBody.contentLength()}"
             }
             val headers = request.headers()
@@ -76,14 +79,12 @@ class HttpLoggingInterceptor : Interceptor {
                 if (!"Content-Type".equals(name,
                         ignoreCase = true) && !"Content-Length".equals(name, ignoreCase = true)
                 ) {
-                    logHeader(headers, i,mHttpLoggingBean)
+                    logHeader(headers, i, mHttpLoggingBean)
                 }
                 i++
             }
-            if (!hasRequestBody) {
-                result += "--> END ${request.method()}\n"
-            } else if (bodyHasUnknownEncoding(request.headers())) {
-                result += "--> END ${request.method()} (encoded body omitted)\n"
+            if (bodyHasUnknownEncoding(request.headers())) {
+                mHttpLoggingBean.headInfo += "--> END ${request.method()} (encoded body omitted)\n"
             } else {
                 val buffer = Buffer()
                 requestBody.writeTo(buffer)
@@ -95,10 +96,10 @@ class HttpLoggingInterceptor : Interceptor {
 
                 // logger.log("");
                 if (isPlaintext(buffer)) {
-                    result += buffer.readString(charset) + "\n"
-                    result += "--> END ${request.method()} (${requestBody.contentLength()} -byte body)"
+                    mHttpLoggingBean.headInfo += buffer.readString(charset) + "\n"
+                    mHttpLoggingBean.headInfo += "--> END ${request.method()} (${requestBody.contentLength()} -byte body)"
                 } else {
-                    result += "--> END ${request.method()} (binary ${requestBody.contentLength()} -byte body omitted)"
+                    mHttpLoggingBean.headInfo += "--> END ${request.method()} (binary ${requestBody.contentLength()} -byte body omitted)"
                 }
             }
         }
@@ -106,7 +107,7 @@ class HttpLoggingInterceptor : Interceptor {
         val response: Response = try {
             chain.proceed(request)
         } catch (e: Exception) {
-            result += "<-- HTTP FAILED: $e"
+            mHttpLoggingBean.responseContent += "<-- HTTP FAILED: $e"
             throw e
         }
         val tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs)
@@ -167,7 +168,6 @@ class HttpLoggingInterceptor : Interceptor {
              }*/
         }
         result += "————————请求End————————\n"
-        Log.e("treasure", mHttpLoggingBean.toString())
         mHttplogginList?.add(mHttpLoggingBean)
         HandlerUtils.runOnUiThread(Runnable {
             mViewModel?.mLoggingMutableList?.value = mHttplogginList

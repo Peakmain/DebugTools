@@ -8,13 +8,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/ui_color_2F73F6"
+            android:padding="@dimen/dimen_10"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:textSize="@dimen/font_size_16" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/debug_recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </layout>

@@ -8,28 +8,31 @@
         <variable
             name="vm"
             type="com.peakmain.debug.bean.HttpLoggingBean" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="@dimen/dimen_10"
         android:paddingLeft="@dimen/dimen_10"
+        android:paddingTop="@dimen/dimen_10"
         android:paddingRight="@dimen/dimen_10"
         android:paddingBottom="@dimen/dimen_10">
 
         <TextView
+
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="请求Start"
             android:layout_marginTop="@dimen/dimen_10"
+            android:text="请求Start"
             android:textColor="@color/ui_color_333333"
             android:textSize="@dimen/font_size_18"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_text"
+            android:id="@+id/tv_start_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_14"
@@ -38,20 +41,43 @@
             android:textSize="@dimen/font_size_16" />
 
         <TextView
+            android:id="@+id/tv_requestBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="@{vm.requestBody!=null?vm.requestBody:``}"
+            android:textColor="@color/ui_color_333333"
+            android:textSize="@dimen/font_size_16"
+            android:visibility="@{vm.requestBody==null?View.GONE:View.VISIBLE}" />
+        <TextView
+            android:id="@+id/tv_headInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="@{vm.headInfo!=null?vm.headInfo:``}"
+            android:textColor="@color/ui_color_333333"
+            android:textSize="@dimen/font_size_16"
+            android:visibility="@{vm.headInfo==null?View.GONE:View.VISIBLE}" />
+
+        <TextView
+            android:id="@+id/tv_responseContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_10"
             android:text="@{vm.responseContent}"
             android:textColor="@color/ui_color_333333"
             android:textSize="@dimen/font_size_16" />
+
         <TextView
+            android:id="@+id/tv_responseBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_10"
-            android:text="@{vm.responseBody}"
             android:lineSpacingMultiplier="1.2"
+            android:text="@{vm.responseBody}"
             android:textColor="@color/ui_color_333333"
             android:textSize="@dimen/font_size_16" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

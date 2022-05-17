@@ -8,6 +8,8 @@ package com.peakmain.debug.bean
  */
 data class HttpLoggingBean(
     var requestStartMessage: String? = null,
+    var requestUrl: String? = null,
+    var requestBody: String? = null,
     var responseContent: String? = null,
     var responseBody: String? = null,
     var contentType: String? = null,
