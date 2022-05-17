@@ -22,6 +22,7 @@ internal class HttpLoggingAdapter(data:MutableList<HttpLoggingBean>): CommonRecy
     ) {
         val binding = holder.itemDataBinding
         binding.vm = itemData
+        binding.position=position
     }
 
 }

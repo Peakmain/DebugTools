@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">debug</string>
+
+    <color name="debug_color_f1f1f1">#f1f1f1</color>
 </resources>

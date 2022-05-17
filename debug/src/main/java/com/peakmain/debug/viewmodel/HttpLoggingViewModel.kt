@@ -12,6 +12,7 @@ import com.peakmain.debug.bean.HttpLoggingBean
  */
 class HttpLoggingViewModel : BaseViewModel() {
     var mLoggingMutableList: MutableLiveData<MutableList<HttpLoggingBean>> = MutableLiveData()
+    var isPositiveSequence = MutableLiveData<Boolean>()
     override fun initModel() {
 
     }

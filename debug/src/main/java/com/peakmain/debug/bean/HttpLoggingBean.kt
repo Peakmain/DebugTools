@@ -15,5 +15,4 @@ data class HttpLoggingBean(
     var contentType: String? = null,
     var contentLength: String? = null,
     var headInfo: String? = null
-
 )

@@ -104,6 +104,7 @@ class HttpLoggingInterceptor : Interceptor {
                 }
             }
         }
+        mHttpLoggingBean.responseContent=""
         val startNs = System.nanoTime()
         val response: Response = try {
             chain.proceed(request)
@@ -161,15 +162,20 @@ class HttpLoggingInterceptor : Interceptor {
                 mHttpLoggingBean.responseBody += buffer.clone().readString(charset) + "\n"
             }
             //mHttpLoggingBean.responseBody = FormatJson.format(mHttpLoggingBean.responseBody)
-             mHttpLoggingBean.responseBody += if (gzippedLength != null) {
-                 "<-- END HTTP (" + buffer.size() + "-byte, " + gzippedLength + "-gzipped-byte body)\n"
+            mHttpLoggingBean.responseBody += if (gzippedLength != null) {
+                "<-- END HTTP (" + buffer.size() + "-byte, " + gzippedLength + "-gzipped-byte body)\n"
 
-             } else {
-                 "<-- END HTTP (" + buffer.size() + "-byte body)\n"
-             }
+            } else {
+                "<-- END HTTP (" + buffer.size() + "-byte body)\n"
+            }
         }
         result += "————————请求End————————\n"
-        mHttplogginList?.add(0,mHttpLoggingBean)
+        mHttplogginList?.apply {
+            if(size>100){
+                mHttplogginList?.removeAt(size-1)
+            }
+        }
+        mHttplogginList?.add(0, mHttpLoggingBean)
         HandlerUtils.runOnUiThread(Runnable {
             mViewModel?.mLoggingMutableList?.value = mHttplogginList
         })

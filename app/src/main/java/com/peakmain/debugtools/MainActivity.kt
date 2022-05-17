@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.peakmain.basiclibrary.network.RetrofitManager
 import com.peakmain.basiclibrary.network.status.ApiStatus
+import com.peakmain.debug.DebugToolDialogFragment
 import com.peakmain.debug.log.HttpLoggingActivity
 
 class MainActivity : AppCompatActivity() {
@@ -18,10 +19,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<TextView>(R.id.tv_name).setOnClickListener {
-           /* val clazz = Class.forName("com.peakmain.debug.DebugToolDialogFragment")
+           val clazz = Class.forName("com.peakmain.debug.DebugToolDialogFragment")
             val target = clazz.getConstructor().newInstance() as DebugToolDialogFragment
-            target.show(supportFragmentManager, "debug_tool")*/
-            startActivity(Intent(this, HttpLoggingActivity::class.java))
+            target.show(supportFragmentManager, "debug_tool")
         }
         RetrofitManager.createData(api.getBannerJson(), object : ApiStatus<Any>() {
             override fun error(exception: Exception) {

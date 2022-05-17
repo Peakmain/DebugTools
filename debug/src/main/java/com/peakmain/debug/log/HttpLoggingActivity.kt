@@ -2,6 +2,7 @@ package com.peakmain.debug.log
 
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -62,16 +63,24 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
         mAdapter?.setData(data)
     }
 
+
     private fun initToolbar() {
-        mDefaultNavigationBar
+        val create = mDefaultNavigationBar
             .setTitleText("接口抓包工具")
             .setDisplayHomeAsUpEnabled(true)
-            .setRightResId(R.drawable.ic_debug_clear_all_24)
+            .setRightResId(R.drawable.ic_descending_order)
             .showRightView()
             .setRightViewClickListener(View.OnClickListener { v ->
+                val value = mViewModel.isPositiveSequence.value
+                mViewModel.isPositiveSequence.value = if (value == null) true else !value
                 mViewModel.mLoggingMutableList.value =
                     mViewModel.mLoggingMutableList.value?.asReversed()
             }).create()
+
+        mViewModel.isPositiveSequence.observe(this,
+            Observer<Boolean> {
+                create?.setRightResId(if (it) R.drawable.ic_positive_sequence else R.drawable.ic_descending_order)
+            })
 
     }
 
