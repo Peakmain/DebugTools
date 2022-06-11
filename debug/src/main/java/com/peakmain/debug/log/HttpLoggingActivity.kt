@@ -26,7 +26,9 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
 
     override fun initView() {
         initToolbar()
-        mAdapter = HttpLoggingAdapter(mViewModel.mLoggingMutableList.value!!)
+        if(mViewModel.mLoggingMutableList.value!=null){
+            mAdapter = HttpLoggingAdapter(mViewModel.mLoggingMutableList.value!!)
+        }
         mBinding.debugRecyclerView.apply {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(this@HttpLoggingActivity)
