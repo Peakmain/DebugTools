@@ -14,5 +14,6 @@ data class HttpLoggingBean(
     var responseBody: String? = null,
     var contentType: String? = null,
     var contentLength: String? = null,
-    var headInfo: String? = null
-)
+    var headInfo: String? = null,
+    var result: String? = null
+):java.io.Serializable

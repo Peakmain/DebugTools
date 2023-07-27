@@ -10,7 +10,7 @@ public class FormatJson {
     public static String format(String strJson) {
         // 计数tab的个数
         int tabNum = 0;
-        StringBuffer jsonFormat = new StringBuffer();
+        StringBuilder jsonFormat = new StringBuilder();
         int length = strJson.length();
 
         char last = 0;
@@ -18,7 +18,7 @@ public class FormatJson {
             char c = strJson.charAt(i);
             if (c == '{') {
                 tabNum++;
-                jsonFormat.append(c + "\n");
+                jsonFormat.append(c).append("\n");
                 jsonFormat.append(getSpaceOrTab(tabNum));
             } else if (c == '}') {
                 tabNum--;
@@ -26,17 +26,17 @@ public class FormatJson {
                 jsonFormat.append(getSpaceOrTab(tabNum));
                 jsonFormat.append(c);
             } else if (c == ',') {
-                jsonFormat.append(c + "\n");
+                jsonFormat.append(c).append("\n");
                 jsonFormat.append(getSpaceOrTab(tabNum));
             } else if (c == ':') {
-                jsonFormat.append(c + " ");
+                jsonFormat.append(c).append(" ");
             } else if (c == '[') {
                 tabNum++;
                 char next = strJson.charAt(i + 1);
                 if (next == ']') {
                     jsonFormat.append(c);
                 } else {
-                    jsonFormat.append(c + "\n");
+                    jsonFormat.append(c).append("\n");
                     jsonFormat.append(getSpaceOrTab(tabNum));
                 }
             } else if (c == ']') {
@@ -44,7 +44,7 @@ public class FormatJson {
                 if (last == '[') {
                     jsonFormat.append(c);
                 } else {
-                    jsonFormat.append("\n" + getSpaceOrTab(tabNum) + c);
+                    jsonFormat.append("\n").append(getSpaceOrTab(tabNum)).append(c);
                 }
             } else {
                 jsonFormat.append(c);
@@ -55,7 +55,7 @@ public class FormatJson {
     }
 
     private static String getSpaceOrTab(int tabNum) {
-        StringBuffer sbTab = new StringBuffer();
+        StringBuilder sbTab = new StringBuilder();
         for (int i = 0; i < tabNum; i++) {
             sbTab.append('\t');
         }

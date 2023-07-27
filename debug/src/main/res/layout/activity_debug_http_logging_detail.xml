@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dimen_8"
+        android:layout_marginRight="@dimen/dimen_8"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:orientation="horizontal">
+
+            <com.peakmain.ui.widget.ShapeTextView
+                android:id="@+id/stv_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/dimen_8"
+                android:paddingTop="@dimen/dimen_4"
+                android:paddingRight="@dimen/dimen_8"
+                android:paddingBottom="@dimen/dimen_4"
+                android:text="Header首部"
+                android:textColor="@color/ui_color_272A2B"
+                android:textSize="@dimen/font_size_14"
+                app:shapeTvRadius="@dimen/dimen_4"
+                app:shapeTvStrokeColor="@color/ui_color_272A2B"
+                app:shapeTvStrokeWidth="@dimen/dimen_0_5" />
+
+            <com.peakmain.ui.widget.ShapeTextView
+                android:id="@+id/stv_request_body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_8"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/dimen_8"
+                android:paddingTop="@dimen/dimen_4"
+                android:paddingRight="@dimen/dimen_8"
+                android:paddingBottom="@dimen/dimen_4"
+                android:text="请求参数body"
+                android:textColor="@color/ui_color_272A2B"
+                android:textSize="@dimen/font_size_14"
+                app:shapeTvRadius="@dimen/dimen_4"
+                app:shapeTvStrokeColor="@color/ui_color_272A2B"
+                app:shapeTvStrokeWidth="@dimen/dimen_0_5" />
+
+            <com.peakmain.ui.widget.ShapeTextView
+                android:id="@+id/stv_back_result"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dimen_8"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/dimen_8"
+                android:paddingTop="@dimen/dimen_4"
+                android:paddingRight="@dimen/dimen_8"
+                android:paddingBottom="@dimen/dimen_4"
+                android:text="返回的结果"
+                android:textColor="@color/ui_color_272A2B"
+                android:textSize="@dimen/font_size_14"
+                app:shapeTvRadius="@dimen/dimen_4"
+                app:shapeTvStrokeColor="@color/ui_color_272A2B"
+                app:shapeTvStrokeWidth="@dimen/dimen_0_5" />
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:textColor="@color/ui_color_272A2B"
+                android:textSize="@dimen/font_size_12" />
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

@@ -26,7 +26,7 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
 
     override fun initView() {
         initToolbar()
-        if(mViewModel.mLoggingMutableList.value!=null){
+        if (mViewModel.mLoggingMutableList.value != null) {
             mAdapter = HttpLoggingAdapter(mViewModel.mLoggingMutableList.value!!)
         }
         mBinding.debugRecyclerView.apply {
@@ -37,13 +37,14 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
         if (mutableList != null && mutableList.size > 0) {
             mBinding.tvHeader.text = mViewModel.mLoggingMutableList.value!![0].requestUrl
         }
-        mViewModel.mLoggingMutableList.observe(this,
-            Observer<MutableList<HttpLoggingBean>> {
-                if (mutableList != null && mutableList.size > 0) {
-                    mBinding.tvHeader.text = mViewModel.mLoggingMutableList.value!![0].requestUrl
-                }
-                notifyDataChange(it)
-            })
+        mViewModel.mLoggingMutableList.observe(
+            this
+        ) {
+            if (mutableList != null && mutableList.size > 0) {
+                mBinding.tvHeader.text = mViewModel.mLoggingMutableList.value!![0].requestUrl
+            }
+            notifyDataChange(it)
+        }
 
         mBinding.debugRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -79,10 +80,10 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
                     mViewModel.mLoggingMutableList.value?.asReversed()
             }).create()
 
-        mViewModel.isPositiveSequence.observe(this,
-            Observer<Boolean> {
-                create?.setRightResId(if (it) R.drawable.ic_positive_sequence else R.drawable.ic_descending_order)
-            })
+        mViewModel.isPositiveSequence.observe(this
+        ) {
+            create?.setRightResId(if (it) R.drawable.ic_positive_sequence else R.drawable.ic_descending_order)
+        }
 
     }
 

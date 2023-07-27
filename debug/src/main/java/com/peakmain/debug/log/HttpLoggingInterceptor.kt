@@ -2,6 +2,7 @@ package com.peakmain.debug.log
 
 import com.peakmain.basiclibrary.config.BasicLibraryConfig
 import com.peakmain.debug.bean.HttpLoggingBean
+import com.peakmain.debug.utils.FormatJson
 import com.peakmain.debug.viewmodel.HttpLoggingViewModel
 import com.peakmain.ui.utils.HandlerUtils
 import okhttp3.*
@@ -58,7 +59,7 @@ class HttpLoggingInterceptor : Interceptor {
             mHttpLoggingBean.requestStartMessage += "(${requestBody!!.contentLength()} + \"-byte body)"
         }
         if (hasRequestBody) {
-            mHttpLoggingBean.headInfo = "Header首部："
+            mHttpLoggingBean.headInfo = "Header首部：\n"
             if (requestBody!!.contentType() != null) {
                 mHttpLoggingBean.headInfo += "Content-Type: ${requestBody.contentType()};"
                 mHttpLoggingBean.contentType = "Content-Type: ${requestBody.contentType()};"
@@ -95,7 +96,10 @@ class HttpLoggingInterceptor : Interceptor {
 
                 // logger.log("");
                 if (isPlaintext(buffer)) {
-                    mHttpLoggingBean.headInfo += "\n\n请求参数body：" + buffer.readString(charset) + "\n"
+                    val body="请求参数body：" + buffer.readString(charset) + "\n"
+                    mHttpLoggingBean.requestBody = body
+                    mHttpLoggingBean.requestBody += "--> END ${request.method} (${requestBody.contentLength()} -byte body)\n\n"
+                    mHttpLoggingBean.headInfo +="\n\n"+ body
                     mHttpLoggingBean.headInfo += "--> END ${request.method} (${requestBody.contentLength()} -byte body)\n\n"
                 } else {
                     mHttpLoggingBean.headInfo += "--> END ${request.method} (binary ${requestBody.contentLength()} -byte body omitted)"
@@ -157,9 +161,10 @@ class HttpLoggingInterceptor : Interceptor {
                 return response
             }
             if (contentLength != 0L) {
-                mHttpLoggingBean.responseBody += buffer.clone().readString(charset) + "\n"
+                val resultBuffer = FormatJson.format(buffer.clone().readString(charset))
+                mHttpLoggingBean.result = resultBuffer
+                mHttpLoggingBean.responseBody += resultBuffer + "\n"
             }
-            //mHttpLoggingBean.responseBody = FormatJson.format(mHttpLoggingBean.responseBody)
             mHttpLoggingBean.responseBody += if (gzippedLength != null) {
                 "<-- END HTTP (" + buffer.size + "-byte, " + gzippedLength + "-gzipped-byte body)\n"
 
