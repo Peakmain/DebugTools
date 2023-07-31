@@ -18,6 +18,7 @@
             android:padding="@dimen/dimen_10"
             android:textColor="@android:color/white"
             android:gravity="center"
+            android:visibility="gone"
             android:textSize="@dimen/font_size_16" />
 
         <androidx.recyclerview.widget.RecyclerView

@@ -46,7 +46,7 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
             notifyDataChange(it)
         }
 
-        mBinding.debugRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+    /*    mBinding.debugRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val manager = recyclerView.layoutManager as LinearLayoutManager
@@ -58,7 +58,7 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
                     }
                 }
             }
-        })
+        })*/
     }
 
     private fun notifyDataChange(data: MutableList<HttpLoggingBean>) {

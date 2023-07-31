@@ -58,6 +58,7 @@ class HttpLoggingInterceptor : Interceptor {
         if (hasRequestBody) {
             mHttpLoggingBean.requestStartMessage += "(${requestBody!!.contentLength()} + \"-byte body)"
         }
+        mHttpLoggingBean.headInfo = ""
         if (hasRequestBody) {
             mHttpLoggingBean.headInfo = "Header首部：\n"
             if (requestBody!!.contentType() != null) {
@@ -96,10 +97,10 @@ class HttpLoggingInterceptor : Interceptor {
 
                 // logger.log("");
                 if (isPlaintext(buffer)) {
-                    val body="请求参数body：" + buffer.readString(charset) + "\n"
+                    val body = "请求参数body：" + buffer.readString(charset) + "\n"
                     mHttpLoggingBean.requestBody = body
                     mHttpLoggingBean.requestBody += "--> END ${request.method} (${requestBody.contentLength()} -byte body)\n\n"
-                    mHttpLoggingBean.headInfo +="\n\n"+ body
+                    mHttpLoggingBean.headInfo += "\n\n" + body
                     mHttpLoggingBean.headInfo += "--> END ${request.method} (${requestBody.contentLength()} -byte body)\n\n"
                 } else {
                     mHttpLoggingBean.headInfo += "--> END ${request.method} (binary ${requestBody.contentLength()} -byte body omitted)"

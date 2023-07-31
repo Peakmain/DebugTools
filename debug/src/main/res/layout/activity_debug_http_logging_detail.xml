@@ -29,10 +29,11 @@
                 android:paddingRight="@dimen/dimen_8"
                 android:paddingBottom="@dimen/dimen_4"
                 android:text="Header首部"
-                android:textColor="@color/ui_color_272A2B"
+                app:shapeTvBackgroundColor="@color/amber_900"
+                android:textColor="@color/white"
                 android:textSize="@dimen/font_size_14"
                 app:shapeTvRadius="@dimen/dimen_4"
-                app:shapeTvStrokeColor="@color/ui_color_272A2B"
+                app:shapeTvStrokeColor="@color/amber_900"
                 app:shapeTvStrokeWidth="@dimen/dimen_0_5" />
 
             <com.peakmain.ui.widget.ShapeTextView
@@ -49,7 +50,7 @@
                 android:textColor="@color/ui_color_272A2B"
                 android:textSize="@dimen/font_size_14"
                 app:shapeTvRadius="@dimen/dimen_4"
-                app:shapeTvStrokeColor="@color/ui_color_272A2B"
+                app:shapeTvStrokeColor="@color/amber_900"
                 app:shapeTvStrokeWidth="@dimen/dimen_0_5" />
 
             <com.peakmain.ui.widget.ShapeTextView
@@ -66,7 +67,7 @@
                 android:textColor="@color/ui_color_272A2B"
                 android:textSize="@dimen/font_size_14"
                 app:shapeTvRadius="@dimen/dimen_4"
-                app:shapeTvStrokeColor="@color/ui_color_272A2B"
+                app:shapeTvStrokeColor="@color/amber_900"
                 app:shapeTvStrokeWidth="@dimen/dimen_0_5" />
         </LinearLayout>
 
