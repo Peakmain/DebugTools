@@ -2,7 +2,6 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
-apply plugin: 'kotlin-android-extensions'
 def androidId = rootProject.ext.android
 android {
     compileSdkVersion androidId.androidCompileSdkVersion
