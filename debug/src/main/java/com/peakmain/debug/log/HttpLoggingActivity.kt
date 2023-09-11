@@ -45,20 +45,6 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
             }
             notifyDataChange(it)
         }
-
-    /*    mBinding.debugRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                val manager = recyclerView.layoutManager as LinearLayoutManager
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val findFirstVisibleItemPosition = manager.findFirstVisibleItemPosition()
-                    if (mutableList != null && mutableList.size > 0) {
-                        mBinding.tvHeader.text =
-                            mViewModel.mLoggingMutableList.value!![findFirstVisibleItemPosition].requestUrl
-                    }
-                }
-            }
-        })*/
     }
 
     private fun notifyDataChange(data: MutableList<HttpLoggingBean>) {
@@ -73,12 +59,12 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
             .setDisplayHomeAsUpEnabled(true)
             .setRightResId(R.drawable.ic_descending_order)
             .showRightView()
-            .setRightViewClickListener(View.OnClickListener { v ->
+            .setRightViewClickListener { v ->
                 val value = mViewModel.isPositiveSequence.value
                 mViewModel.isPositiveSequence.value = if (value == null) true else !value
                 mViewModel.mLoggingMutableList.value =
                     mViewModel.mLoggingMutableList.value?.asReversed()
-            }).create()
+            }.create()
 
         mViewModel.isPositiveSequence.observe(this
         ) {

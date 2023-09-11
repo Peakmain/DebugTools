@@ -16,7 +16,7 @@ import com.peakmain.ui.utils.fps.FpsMonitorUtils
  */
 class DebugTools {
     fun buildVersion(): String =
-        "构建版本:${BuildConfig.VERSION_NAME}"
+        "DebugTools构建版本:${BuildConfig.VERSION_NAME}"
 
 
     fun buildTime(): String =

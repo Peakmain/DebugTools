@@ -36,7 +36,7 @@ class CrashLogAdapter(val context: Context, private var crashFiles: Array<File>)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val file = crashFiles.get(position)
+        val file = crashFiles[position]
         holder.itemView.findViewById<TextView>(R.id.tv_debug_title).text = file.name
         holder.itemView.findViewById<TextView>(R.id.tv_debug_share).setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND)

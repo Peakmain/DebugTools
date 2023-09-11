@@ -70,6 +70,15 @@
                 app:shapeTvStrokeColor="@color/amber_900"
                 app:shapeTvStrokeWidth="@dimen/dimen_0_5" />
         </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_share_24"
+            android:layout_gravity="right"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingBottom="@dimen/dimen_10"
+            android:layout_height="wrap_content"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

@@ -10,7 +10,8 @@ import com.peakmain.ui.widget.ShapeTextView
  * createTime：2023/07/31
  * mail:2726449200@qq.com
  * describe：
- */ fun ShapeTextView.updateTextStyle(isSelect:Boolean,context:Context) {
+ */
+fun ShapeTextView.updateTextStyle(isSelect: Boolean, context: Context) {
     if (isSelect) {
         setTextColor(
             ContextCompat.getColor(
