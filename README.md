@@ -38,14 +38,83 @@ Add it in your root build.gradle at the end of repositories:
 ```
 - 如果对native异常进行捕获，还需要拷贝[libbreakpad.aar](https://github.com/Peakmain/DebugTools/tree/master/debug/libs)到libs目录下
 #### 网络抓包工具
-![网络抓包工具库](https://user-images.githubusercontent.com/26482737/173175628-e62f3c68-6b72-4f25-ab98-4f08b39c3259.gif)
+![网络抓包工具](https://github.com/Peakmain/DebugTools/assets/26482737/82bf1c6b-a3ce-47bd-b0be-69bee77f755c)
+
 - 网络请求添加拦截器
 ```
 OkHttpClient.Builder builder = new OkHttpClient.Builder();
 builder.addInterceptor(new com.peakmain.debug.log.HttpLoggingInterceptor());
 ```
-- 目前只支持自身App的网络请求拦截
-- 支持接口数量最大100，当超过100，会将最旧的一条删除，添加新的接口
+##### 一、DebugTools功能
+1. 支持查看最新接口前100条数据
+2. 支持正序和倒序排序
+3. 可查看每个接口的Header，请求参数与返回结果
+4. 支持分享给开发
+
+##### 二、所有Activity显示悬浮按钮点击显示网络抓包工具
+- 可以使用我的另一个第三方库:https://github.com/Peakmain/BasicUI 的SuspensionView
+- demo代码如下，在自己的基本Activity中调用下方代码即可
+```kotlin
+fun addSuspensionView(activity: AppCompatActivity) {
+    val suspensionView = SuspensionView(
+        activity, com.atour.atourlife.R.drawable.ui_ic_suspension_setting,
+        56f, 60f, 20f, null, 0
+    )
+    activity.addContentView(
+        suspensionView,
+        FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        )
+    )
+    suspensionView.setSuspensionViewClick {
+        var clazz: Class<*>? = null
+        try {
+            clazz = Class.forName("com.peakmain.debug.DebugToolDialogFragment")
+            val target: DebugToolDialogFragment =
+                clazz.getConstructor().newInstance() as DebugToolDialogFragment
+            target.show(activity.getSupportFragmentManager(), "debug_tool")
+        } catch (e: Exception) {
+            throw RuntimeException(e)
+        }
+    }
+}
+```
+##### 三、 Jenkins智能控制开关
+1. Android在项目的build.gradle(一般都是app/build.gradle),利用project.property获取属性，比如我这里属性名是IS_LOG_CONSONLE_ENABLE
+```
+def releaseLogConsoleEnable = project.property('IS_LOG_CONSONLE_ENABLE')
+```
+
+2. buildTypes中通过buildConfigField方法，将属性添加BuildConfig
+```
+buildTypes {
+    release {
+        buildConfigField "boolean", "releaseLogConsoleEnable", releaseLogConsoleEnable
+    }
+    debug {
+        buildConfigField "boolean", "releaseLogConsoleEnable", releaseLogConsoleEnable
+
+    }
+}
+```
+3. 显示开关按钮的地方，添加代码开关
+```
+if(BuildConfig.releaseLogConsoleEnable) {
+    addSuspensionView(this);
+}
+```
+至此Android相关代码配置完成，接下来是Jenkins
+4. Jenkins添加选项设置属性为IS_LOG_CONSONLE_ENABLE
+
+<img width="1000" alt="image" src="https://github.com/Peakmain/DebugTools/assets/26482737/7980a8fd-f354-4dbd-8bf9-bb00908ce916">
+
+
+5. Jenkins gradle配置代码-PIS_LOG_CONSONLE_ENABLE=$IS_LOG_CONSONLE_ENABLE
+```
+./gradlew -Dgradle.user.home=$GRADLE_HOME clean assemble$buildType -b ${WORKSPACE}/app/build.gradle -PIS_LOG_CONSONLE_ENABLE=$IS_LOG_CONSONLE_ENABLE
+```
+
 
 #### fps监控
 ![fps](https://user-images.githubusercontent.com/26482737/173175633-403a0f86-f914-40ac-a74d-359c0808361f.gif)
