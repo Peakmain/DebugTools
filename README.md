@@ -107,9 +107,7 @@ if(BuildConfig.releaseLogConsoleEnable) {
 至此Android相关代码配置完成，接下来是Jenkins
 
 4. Jenkins添加选项设置属性为IS_LOG_CONSONLE_ENABLE
-
 <img width="1000" alt="image" src="https://github.com/Peakmain/DebugTools/assets/26482737/7980a8fd-f354-4dbd-8bf9-bb00908ce916">
-
 
 5. Jenkins gradle配置代码-PIS_LOG_CONSONLE_ENABLE=$IS_LOG_CONSONLE_ENABLE
 ```
