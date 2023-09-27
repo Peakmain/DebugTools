@@ -21,6 +21,7 @@
         <activity android:name=".log.HttpLoggingActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".log.HttpLoggingDetailActivity" />
+        <activity android:name=".activity.EnvironmentExchangeActivity" />
     </application>
 
 </manifest>

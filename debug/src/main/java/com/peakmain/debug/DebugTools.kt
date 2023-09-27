@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.peakmain.debug.activity.CrashLogActivity
+import com.peakmain.debug.activity.EnvironmentExchangeActivity
 import com.peakmain.debug.annotation.PDebug
 import com.peakmain.debug.log.HttpLoggingActivity
 import com.peakmain.ui.utils.fps.FpsMonitorUtils
@@ -23,7 +24,8 @@ class DebugTools {
         "构建时间:${BuildConfig.BUILD_TIME}"
 
 
-    fun buildEnvironment(): String = "构建环境: " + if (BuildConfig.DEBUG) "测试环境" else "正式环境"
+    fun buildEnvironment(): String =
+        "构建环境: " + if (BuildConfig.DEBUG) "测试环境" else "正式环境"
 
     fun buildDevice(): String =
         "设备信息:" + Build.BRAND + "-" + Build.VERSION.SDK_INT + "-" + Build.CPU_ABI
@@ -45,6 +47,10 @@ class DebugTools {
         context.startActivity(Intent(context, HttpLoggingActivity::class.java))
     }
 
+    @PDebug(name = "环境切换", desc = "一键切换Http环境")
+    fun exchangeEnvironment(context: Context){
+        context.startActivity(Intent(context,EnvironmentExchangeActivity::class.java))
+    }
     @PDebug(name = "生成bug", desc = "生成bug，方便测试查看crash日志")
     fun createCrash(context: Context) {
         5 / 0

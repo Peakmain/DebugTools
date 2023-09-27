@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+       <variable
+           name="vm"
+           type="com.peakmain.debug.base.EnvironmentExchangeBean" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dimen_10">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/debug_environment_exchange"
+            android:text="@{vm.title}"
+            android:textColor="@color/ui_color_272A2B"
+            android:textSize="@dimen/font_size_16"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_host"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title"
+            android:layout_marginTop="@dimen/dimen_6"
+            android:text="@{vm.url}"
+            android:textColor="@color/debug_color_999999"
+            android:textSize="@dimen/font_size_14" />
+
+        <com.peakmain.ui.widget.RoundCheckBox
+            android:layout_width="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title"
+            android:clickable="false"
+            android:checked="@{vm.isSelected}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_host"
+            android:layout_height="wrap_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
