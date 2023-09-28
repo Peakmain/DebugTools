@@ -138,10 +138,27 @@ if(BuildConfig.releaseLogConsoleEnable) {
 
 #### 环境切换
 ![一键网络切换](https://github.com/Peakmain/DebugTools/assets/26482737/27b1d507-ca09-4550-8880-88d26e728841)
+##### 一、initEnvironmentExchangeBeanList:初始化http环境列表
+```kotlin
+fun initEnvironmentExchangeBeanList(
+    environmentExchangeBeans: MutableList<EnvironmentExchangeBean>,
+    selectEnvironmentCallback: ((EnvironmentExchangeBean) -> Unit)? = null,
+)
+```
+- 第一个参数environmentExchangeBeans表示http环境列表
+- 第二个参数表示选中某一个http环境的回调
 
+##### 二、initH5EnvironmentExchangeBeanList:初始化http环境列表
+```kotlin
+fun initH5EnvironmentExchangeBeanList(
+    environmentExchangeBeans: MutableList<EnvironmentExchangeBean>,
+    selectH5EnvironmentCallback: ((EnvironmentExchangeBean) -> Unit)? = null,
+)
+```
+- 第一个参数environmentExchangeBeans表示H5环境列表
+- 第二个参数表示选中某一个H5环境的回调
 
-
-- 使用
+##### demo如下
 ```kotlin
     var mEnvironmentExchangeBeans: MutableList<EnvironmentExchangeBean> = ArrayList()//初始化原生环境列表
     var mH5EnvironmentExchangeBeans: MutableList<EnvironmentExchangeBean> = ArrayList()//初始化H5环境列表
@@ -157,4 +174,11 @@ if(BuildConfig.releaseLogConsoleEnable) {
         }
 ```
 - EnvironmentExchangeBean有三个参数：title(标题)、url(http或者H5链接)、isSelected(是否被选中)
-当原生或H5环境列表有多个环境的isSelected被设置为true,则只有第一个默认是被设置为true，其他则会被设置为false
+```kotlin 
+data class EnvironmentExchangeBean(
+    val title: String,
+    val url: String,
+    var isSelected: Boolean = false
+)
+```
+- 当http环境列表有多个环境的isSelected被设置为true,则只有第一个默认是被设置为true，其他则会被设置为false。H5环境列表也是同理。
