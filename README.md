@@ -4,6 +4,7 @@ DebugTools是一个设计开发者支撑工具库
 - 查看崩溃日志
 - 接口抓包工具
 - 打开/关闭FPS
+- 环境切换
 - 项目地址：[https://github.com/Peakmain/DebugTools](https://github.com/Peakmain/DebugTools)
 - 打开DebugToolDialogFragment
 ```
@@ -68,6 +69,7 @@ fun addSuspensionView(activity: AppCompatActivity) {
         )
     )
     suspensionView.setSuspensionViewClick {
+        //方法一
         var clazz: Class<*>? = null
         try {
             clazz = Class.forName("com.peakmain.debug.DebugToolDialogFragment")
@@ -77,6 +79,8 @@ fun addSuspensionView(activity: AppCompatActivity) {
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
+        //方法二：使用DebugToolsManager,只支持FragmentActivity
+	DebugToolsManager.instance.show(this)
     }
 }
 ```
@@ -122,3 +126,24 @@ if(BuildConfig.releaseLogConsoleEnable) {
  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 ```
 - 开启悬浮窗权限即可
+
+#### 环境切换
+![一键网络切换](https://github.com/Peakmain/DebugTools/assets/26482737/ec7cbf38-6cd7-4622-9fbf-26bcceb2a136)
+
+- 使用
+```
+    var mEnvironmentExchangeBeans: MutableList<EnvironmentExchangeBean> = ArrayList()//初始化原生环境列表
+    var mH5EnvironmentExchangeBeans: MutableList<EnvironmentExchangeBean> = ArrayList()//初始化H5环境列表
+    findViewById<TextView>(R.id.tv_name).setOnClickListener {
+            DebugToolsManager.instance
+                .initEnvironmentExchangeBeanList(mEnvironmentExchangeBeans) {
+                    ToastUtils.showLong("当前选中的环境是:${it.title},url是:${it.url}")
+                }.initH5EnvironmentExchangeBeanList(mH5EnvironmentExchangeBeans){
+                    LogUtils.e("当前选中的H5环境是:${it.title},url是:${it.url}")
+                    ToastUtils.showLong("当前选中的H5环境是:${it.title},url是:${it.url}")
+                }
+                .show(this)
+        }
+```
+- EnvironmentExchangeBean有三个参数：title(标题)、url(http或者H5链接)、isSelected(是否被选中)
+当原生或H5环境列表有多个环境的isSelected被设置为true,则只有第一个默认是被设置为true，其他则会被设置为false
