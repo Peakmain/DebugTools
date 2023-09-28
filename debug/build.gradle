@@ -38,7 +38,7 @@ android {
 }
 
 static def buildTime() {
-    return new Date().format("YYYY:MM:dd HH:mm:ss", TimeZone.getTimeZone("GMT+08:00"))
+    return new Date().format("yyyy:MM:dd HH:mm:ss", TimeZone.getTimeZone("GMT+08:00"))
 }
 
 dependencies {
