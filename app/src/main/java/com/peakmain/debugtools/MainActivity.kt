@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                     ToastUtils.showLong("当前选中的环境是:${it.title},url是:${it.url}")
                 }.initH5EnvironmentExchangeBeanList(mH5EnvironmentExchangeBeans){
                     LogUtils.e("当前选中的H5环境是:${it.title},url是:${it.url}")
-                    ToastUtils.showLong("当前选中的H5环境是:${it.title},url是:${it.url}")
+                    //ToastUtils.showLong("当前选中的H5环境是:${it.title},url是:${it.url}")
                 }
                 .show(this)
         }
@@ -92,35 +92,6 @@ class MainActivity : AppCompatActivity() {
                 false
             )
         )
-        mEnvironmentExchangeBeans.add(
-            EnvironmentExchangeBean(
-                "qa3",
-                "https://www.baidu3.com",
-                false
-            )
-        )
-        mEnvironmentExchangeBeans.add(
-            EnvironmentExchangeBean(
-                "qa3",
-                "https://www.baidu3.com",
-                false
-            )
-        )
-
-        mEnvironmentExchangeBeans.add(
-            EnvironmentExchangeBean(
-                "qa3",
-                "https://www.baidu3.com",
-                false
-            )
-        )
-        mEnvironmentExchangeBeans.add(
-            EnvironmentExchangeBean(
-                "qa3",
-                "https://www.baidu3.com",
-                false
-            )
-        )
         mH5EnvironmentExchangeBeans.add(
             EnvironmentExchangeBean(
                 "qa0",
@@ -138,29 +109,15 @@ class MainActivity : AppCompatActivity() {
 
         mH5EnvironmentExchangeBeans.add(
             EnvironmentExchangeBean(
-                "qa0",
-                "https://www.baidu.com",
+                "qa2",
+                "https://www.baidu2.com",
                 false
             )
         )
         mH5EnvironmentExchangeBeans.add(
             EnvironmentExchangeBean(
-                "qa0",
-                "https://www.baidu.com",
-                false
-            )
-        )
-        mH5EnvironmentExchangeBeans.add(
-            EnvironmentExchangeBean(
-                "qa0",
-                "https://www.baidu.com",
-                false
-            )
-        )
-        mH5EnvironmentExchangeBeans.add(
-            EnvironmentExchangeBean(
-                "qa0",
-                "https://www.baidu.com",
+                "qa3",
+                "https://www.baidu3.com",
                 false
             )
         )

@@ -7,6 +7,7 @@ import com.peakmain.debug.base.EnvironmentExchangeBean
 import com.peakmain.debug.databinding.DebugRecyclerEnvironmentItemBinding
 import com.peakmain.debug.manager.DebugToolsManager
 import com.peakmain.ui.utils.LogUtils
+import com.peakmain.ui.utils.PreferencesUtil
 
 /**
  * author ：Peakmain
@@ -20,6 +21,14 @@ internal class H5EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchang
     ) {
     private var mOldSelectedPosition: Int = -1
     private var isClick = false
+
+    private val h5EnvironmentExchangeKey = "h5EnvironmentExchangeKey"
+    private var mPreferencesUtils: PreferencesUtil? = null
+    private var mSaveUrl: String
+    init {
+        mPreferencesUtils = PreferencesUtil.instance
+        mSaveUrl = mPreferencesUtils?.getParam(h5EnvironmentExchangeKey, "") as String
+    }
     override fun convert(
         holder: BaseLibraryViewHolder<DebugRecyclerEnvironmentItemBinding>,
         itemData: EnvironmentExchangeBean,
@@ -27,9 +36,16 @@ internal class H5EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchang
     ) {
         val itemDataBinding = holder.itemDataBinding
         if (!isClick) {
-            if (mOldSelectedPosition == -1 && itemData.isSelected) {
-                mOldSelectedPosition = position
-                DebugToolsManager.instance.mSelectH5EnvironmentCallback?.invoke(itemData)
+            if (!android.text.TextUtils.isEmpty(mSaveUrl)) {
+                if (mSaveUrl == itemData.url) {
+                    defaultSelect(position, itemData)
+                } else {
+                    itemData.isSelected = false
+                }
+            }
+            else if (mOldSelectedPosition == -1 && itemData.isSelected) {
+                defaultSelect(position, itemData)
+                mPreferencesUtils?.saveParam(h5EnvironmentExchangeKey, itemData.url)
             } else {
                 itemData.isSelected = false
             }
@@ -42,7 +58,13 @@ internal class H5EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchang
             updateEnvironmentExchange(itemData, position)
         }
     }
-
+    private fun defaultSelect(
+        position: Int,
+        itemData: EnvironmentExchangeBean,
+    ) {
+        mOldSelectedPosition = position
+        DebugToolsManager.instance.mSelectH5EnvironmentCallback?.invoke(itemData)
+    }
     private fun updateEnvironmentExchange(
         itemData: EnvironmentExchangeBean,
         position: Int,
@@ -53,6 +75,7 @@ internal class H5EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchang
             notifyItemChanged(mOldSelectedPosition)
         }
         notifyItemChanged(position)
+        mPreferencesUtils?.saveParam(h5EnvironmentExchangeKey, itemData.url)
         DebugToolsManager.instance.mSelectH5EnvironmentCallback?.invoke(itemData)
         mOldSelectedPosition = position
     }

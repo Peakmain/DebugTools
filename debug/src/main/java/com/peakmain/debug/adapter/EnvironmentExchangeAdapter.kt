@@ -6,7 +6,7 @@ import com.peakmain.debug.R
 import com.peakmain.debug.base.EnvironmentExchangeBean
 import com.peakmain.debug.databinding.DebugRecyclerEnvironmentItemBinding
 import com.peakmain.debug.manager.DebugToolsManager
-import com.peakmain.ui.utils.LogUtils
+import com.peakmain.ui.utils.PreferencesUtil
 
 /**
  * author ：Peakmain
@@ -14,12 +14,23 @@ import com.peakmain.ui.utils.LogUtils
  * mail:2726449200@qq.com
  * describe：
  */
-internal class EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchangeBean>) :
+internal class EnvironmentExchangeAdapter(
+    data: MutableList<EnvironmentExchangeBean>,
+) :
     CommonRecyclerDataBindingAdapter<EnvironmentExchangeBean, DebugRecyclerEnvironmentItemBinding>(
         data, R.layout.debug_recycler_environment_item, null
     ) {
     private var mOldSelectedPosition: Int = -1
     private var isClick = false
+    private val environmentExchangeKey = "environmentExchangeKey"
+    private var mPreferencesUtils: PreferencesUtil? = null
+    private var mSaveUrl: String
+
+    init {
+        mPreferencesUtils = PreferencesUtil.instance
+        mSaveUrl = mPreferencesUtils?.getParam(environmentExchangeKey, "") as String
+    }
+
     override fun convert(
         holder: BaseLibraryViewHolder<DebugRecyclerEnvironmentItemBinding>,
         itemData: EnvironmentExchangeBean,
@@ -27,9 +38,15 @@ internal class EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchangeB
     ) {
         val itemDataBinding = holder.itemDataBinding
         if (!isClick) {
-            if (mOldSelectedPosition == -1 && itemData.isSelected) {
-                mOldSelectedPosition = position
-                DebugToolsManager.instance.mSelectEnvironmentCallback?.invoke(itemData)
+            if (!android.text.TextUtils.isEmpty(mSaveUrl)) {
+                if (mSaveUrl == itemData.url) {
+                    defaultSelect(position, itemData)
+                } else {
+                    itemData.isSelected = false
+                }
+            } else if (mOldSelectedPosition == -1 && itemData.isSelected) {
+                defaultSelect(position, itemData)
+                mPreferencesUtils?.saveParam(environmentExchangeKey, itemData.url)
             } else {
                 itemData.isSelected = false
             }
@@ -43,16 +60,25 @@ internal class EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchangeB
         }
     }
 
+    private fun defaultSelect(
+        position: Int,
+        itemData: EnvironmentExchangeBean,
+    ) {
+        mOldSelectedPosition = position
+        DebugToolsManager.instance.mSelectEnvironmentCallback?.invoke(itemData)
+    }
+
     private fun updateEnvironmentExchange(
         itemData: EnvironmentExchangeBean,
         position: Int,
     ) {
         itemData.isSelected = true
-        if (mOldSelectedPosition != -1){
+        if (mOldSelectedPosition != -1) {
             mData[mOldSelectedPosition].isSelected = false
             notifyItemChanged(mOldSelectedPosition)
         }
         notifyItemChanged(position)
+        mPreferencesUtils?.saveParam(environmentExchangeKey, itemData.url)
         DebugToolsManager.instance.mSelectEnvironmentCallback?.invoke(itemData)
         mOldSelectedPosition = position
     }
