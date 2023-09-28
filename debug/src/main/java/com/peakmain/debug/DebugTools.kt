@@ -47,7 +47,7 @@ class DebugTools {
         context.startActivity(Intent(context, HttpLoggingActivity::class.java))
     }
 
-    @PDebug(name = "环境切换", desc = "一键切换Http环境")
+    @PDebug(name = "环境切换", desc = "一键切换Http和H5环境")
     fun exchangeEnvironment(context: Context){
         context.startActivity(Intent(context,EnvironmentExchangeActivity::class.java))
     }

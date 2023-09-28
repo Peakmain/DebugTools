@@ -14,7 +14,7 @@ import com.peakmain.ui.utils.LogUtils
  * mail:2726449200@qq.com
  * describe：
  */
-internal class EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchangeBean>) :
+internal class H5EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchangeBean>) :
     CommonRecyclerDataBindingAdapter<EnvironmentExchangeBean, DebugRecyclerEnvironmentItemBinding>(
         data, R.layout.debug_recycler_environment_item, null
     ) {
@@ -29,7 +29,7 @@ internal class EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchangeB
         if (!isClick) {
             if (mOldSelectedPosition == -1 && itemData.isSelected) {
                 mOldSelectedPosition = position
-                DebugToolsManager.instance.mSelectEnvironmentCallback?.invoke(itemData)
+                DebugToolsManager.instance.mSelectH5EnvironmentCallback?.invoke(itemData)
             } else {
                 itemData.isSelected = false
             }
@@ -53,7 +53,7 @@ internal class EnvironmentExchangeAdapter(data: MutableList<EnvironmentExchangeB
             notifyItemChanged(mOldSelectedPosition)
         }
         notifyItemChanged(position)
-        DebugToolsManager.instance.mSelectEnvironmentCallback?.invoke(itemData)
+        DebugToolsManager.instance.mSelectH5EnvironmentCallback?.invoke(itemData)
         mOldSelectedPosition = position
     }
 }

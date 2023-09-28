@@ -6,17 +6,49 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+   <androidx.core.widget.NestedScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:background="@color/white">
 
-        <com.peakmain.ui.recyclerview.view.WrapRecyclerView
-            android:id="@+id/rv_environment_exchange"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+           <TextView
+               android:id="@+id/tv_native_title"
+               android:layout_width="match_parent"
+               android:padding="@dimen/dimen_10"
+               android:text="原生环境"
+               android:background="@color/ui_color_F5F5F5"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintLeft_toLeftOf="parent"
+               android:layout_height="wrap_content" />
+
+           <com.peakmain.ui.recyclerview.view.WrapRecyclerView
+               android:id="@+id/rv_environment_exchange"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+               app:layout_constraintLeft_toLeftOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/tv_native_title" />
+           <TextView
+               android:id="@+id/tv_h5_title"
+               android:layout_width="match_parent"
+               android:padding="@dimen/dimen_10"
+               android:layout_marginTop="@dimen/dimen_20"
+               android:background="@color/ui_color_F5F5F5"
+               android:text="H5环境"
+               app:layout_constraintTop_toBottomOf="@id/rv_environment_exchange"
+               app:layout_constraintLeft_toLeftOf="parent"
+               android:layout_height="wrap_content" />
+
+           <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/rv_h5_environment_exchange"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+               app:layout_constraintLeft_toLeftOf="parent"
+               app:layout_constraintTop_toBottomOf="@id/tv_h5_title"/>
+       </androidx.constraintlayout.widget.ConstraintLayout>
+   </androidx.core.widget.NestedScrollView>
 </layout>
