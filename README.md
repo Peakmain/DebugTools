@@ -9,9 +9,18 @@ DebugTools是一个设计开发者支撑工具库
 - 打开DebugToolDialogFragment
 ```
 findViewById<TextView>(R.id.tv_name).setOnClickListener {
-    val clazz = Class.forName("com.peakmain.debug.DebugToolDialogFragment")
-    val target = clazz.getConstructor().newInstance() as DebugToolDialogFragment
-    target.show(supportFragmentManager, "debug_tool")
+        //方法一
+        var clazz: Class<*>? = null
+        try {
+            clazz = Class.forName("com.peakmain.debug.DebugToolDialogFragment")
+            val target: DebugToolDialogFragment =
+                clazz.getConstructor().newInstance() as DebugToolDialogFragment
+            target.show(activity.getSupportFragmentManager(), "debug_tool")
+        } catch (e: Exception) {
+            throw RuntimeException(e)
+        }
+        //方法二：使用DebugToolsManager,只支持FragmentActivity
+	DebugToolsManager.instance.show(this)
 }
 ```
 #### How To
