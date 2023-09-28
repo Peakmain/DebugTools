@@ -7,7 +7,7 @@ DebugTools是一个设计开发者支撑工具库
 - 环境切换
 - 项目地址：[https://github.com/Peakmain/DebugTools](https://github.com/Peakmain/DebugTools)
 - 打开DebugToolDialogFragment
-```
+```kotlin
 findViewById<TextView>(R.id.tv_name).setOnClickListener {
         //方法一
         var clazz: Class<*>? = null
@@ -26,7 +26,7 @@ findViewById<TextView>(R.id.tv_name).setOnClickListener {
 #### How To
 - Step 1. Add the JitPack repository to your build file
 Add it in your root build.gradle at the end of repositories:
-```
+```gradle
 	allprojects {
 		repositories {
 			...
@@ -35,7 +35,7 @@ Add it in your root build.gradle at the end of repositories:
 	}
 ```
 - Step 2. Add the dependency
-```
+```gradle
 	dependencies {
 	       implementation "com.github.Peakmain:DebugTools:+"
 	}
@@ -43,7 +43,7 @@ Add it in your root build.gradle at the end of repositories:
 #### 日志捕获分享框架
 ![日志捕获分享框架](https://user-images.githubusercontent.com/26482737/173175618-37bd970d-4c6d-42de-a304-eb69aee3719d.gif)
 - App中初始化
-```
+```kotlin
  CrashUtils.init(this)
 ```
 - 如果对native异常进行捕获，还需要拷贝[libbreakpad.aar](https://github.com/Peakmain/DebugTools/tree/master/debug/libs)到libs目录下
@@ -51,7 +51,7 @@ Add it in your root build.gradle at the end of repositories:
 ![网络抓包工具](https://github.com/Peakmain/DebugTools/assets/26482737/82bf1c6b-a3ce-47bd-b0be-69bee77f755c)
 
 - 网络请求添加拦截器
-```
+```kotlin
 OkHttpClient.Builder builder = new OkHttpClient.Builder();
 builder.addInterceptor(new com.peakmain.debug.log.HttpLoggingInterceptor());
 ```
@@ -95,12 +95,12 @@ fun addSuspensionView(activity: AppCompatActivity) {
 ```
 ##### 三、 Jenkins智能控制开关
 1. Android在项目的build.gradle(一般都是app/build.gradle),利用project.property获取属性，比如我这里属性名是IS_LOG_CONSONLE_ENABLE
-```
+```gradle
 def releaseLogConsoleEnable = project.property('IS_LOG_CONSONLE_ENABLE')
 ```
 
 2. buildTypes中通过buildConfigField方法，将属性添加BuildConfig
-```
+```gradle
 buildTypes {
     release {
         buildConfigField "boolean", "releaseLogConsoleEnable", releaseLogConsoleEnable
@@ -112,7 +112,7 @@ buildTypes {
 }
 ```
 3. 显示开关按钮的地方，添加代码开关
-```
+```kotlin
 if(BuildConfig.releaseLogConsoleEnable) {
     addSuspensionView(this);
 }
@@ -123,7 +123,7 @@ if(BuildConfig.releaseLogConsoleEnable) {
 <img width="1000" alt="image" src="https://github.com/Peakmain/DebugTools/assets/26482737/7980a8fd-f354-4dbd-8bf9-bb00908ce916">
 
 5. Jenkins gradle配置代码-PIS_LOG_CONSONLE_ENABLE=$IS_LOG_CONSONLE_ENABLE
-```
+```gradle
 ./gradlew -Dgradle.user.home=$GRADLE_HOME clean assemble$buildType -b ${WORKSPACE}/app/build.gradle -PIS_LOG_CONSONLE_ENABLE=$IS_LOG_CONSONLE_ENABLE
 ```
 
@@ -131,7 +131,7 @@ if(BuildConfig.releaseLogConsoleEnable) {
 #### fps监控
 ![fps](https://user-images.githubusercontent.com/26482737/173175633-403a0f86-f914-40ac-a74d-359c0808361f.gif)
 - App的AndroidManifest.xml需要添加悬浮窗权限
-```
+```kotlin
  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 ```
 - 开启悬浮窗权限即可
@@ -142,7 +142,7 @@ if(BuildConfig.releaseLogConsoleEnable) {
 
 
 - 使用
-```
+```kotlin
     var mEnvironmentExchangeBeans: MutableList<EnvironmentExchangeBean> = ArrayList()//初始化原生环境列表
     var mH5EnvironmentExchangeBeans: MutableList<EnvironmentExchangeBean> = ArrayList()//初始化H5环境列表
     findViewById<TextView>(R.id.tv_name).setOnClickListener {
