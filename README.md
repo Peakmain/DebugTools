@@ -128,7 +128,8 @@ if(BuildConfig.releaseLogConsoleEnable) {
 - 开启悬浮窗权限即可
 
 #### 环境切换
-![一键网络切换](https://github.com/Peakmain/DebugTools/assets/26482737/033ac798-adf8-46e7-ae3b-57c910d15189)
+![一键网络切换](https://github.com/Peakmain/DebugTools/assets/26482737/27b1d507-ca09-4550-8880-88d26e728841)
+
 
 
 - 使用
