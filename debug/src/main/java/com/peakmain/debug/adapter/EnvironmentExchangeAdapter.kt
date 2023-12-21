@@ -6,7 +6,7 @@ import com.peakmain.debug.R
 import com.peakmain.debug.base.EnvironmentExchangeBean
 import com.peakmain.debug.databinding.DebugRecyclerEnvironmentItemBinding
 import com.peakmain.debug.manager.DebugToolsManager
-import com.peakmain.ui.utils.PreferencesUtil
+import com.peakmain.debug.manager.H5PreferenceManager
 
 /**
  * author ：Peakmain
@@ -22,14 +22,7 @@ internal class EnvironmentExchangeAdapter(
     ) {
     private var mOldSelectedPosition: Int = -1
     private var isClick = false
-    private val environmentExchangeKey = "environmentExchangeKey"
-    private var mPreferencesUtils: PreferencesUtil? = null
-    private var mSaveUrl: String
-
-    init {
-        mPreferencesUtils = PreferencesUtil.instance
-        mSaveUrl = mPreferencesUtils?.getParam(environmentExchangeKey, "") as String
-    }
+    private var mSaveUrl: String=H5PreferenceManager.instance.getNativeEnvironmentUrl()
 
     override fun convert(
         holder: BaseLibraryViewHolder<DebugRecyclerEnvironmentItemBinding>,
@@ -46,7 +39,7 @@ internal class EnvironmentExchangeAdapter(
                 }
             } else if (mOldSelectedPosition == -1 && itemData.isSelected) {
                 defaultSelect(position, itemData)
-                mPreferencesUtils?.saveParam(environmentExchangeKey, itemData.url)
+                H5PreferenceManager.instance.saveNativeEnvironmentUrl(itemData.url)
             } else {
                 itemData.isSelected = false
             }
@@ -78,7 +71,7 @@ internal class EnvironmentExchangeAdapter(
             notifyItemChanged(mOldSelectedPosition)
         }
         notifyItemChanged(position)
-        mPreferencesUtils?.saveParam(environmentExchangeKey, itemData.url)
+        H5PreferenceManager.instance.saveNativeEnvironmentUrl(itemData.url)
         DebugToolsManager.instance.mSelectEnvironmentCallback?.invoke(itemData)
         mOldSelectedPosition = position
     }

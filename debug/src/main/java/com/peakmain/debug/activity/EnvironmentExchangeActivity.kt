@@ -40,7 +40,7 @@ class EnvironmentExchangeActivity(override val layoutId: Int = R.layout.debug_ac
                 )
             )
         }
-        if (environmentExchangeList.isEmpty()) {
+        if (environmentExchangeList.isEmpty()&&h5EnvironmentExchangeList.isEmpty()) {
             mBinding.rvEnvironmentExchange.showEmptyView()
         } else {
             EnvironmentExchangeAdapter(environmentExchangeList).also {
