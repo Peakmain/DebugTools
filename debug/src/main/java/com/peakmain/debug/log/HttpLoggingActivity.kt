@@ -48,7 +48,6 @@ class HttpLoggingActivity(override val layoutId: Int = R.layout.debug_http_loggi
     }
 
     private fun notifyDataChange(data: MutableList<HttpLoggingBean>) {
-        Log.e("TAG11", data.toString())
         mAdapter?.setData(data)
     }
 

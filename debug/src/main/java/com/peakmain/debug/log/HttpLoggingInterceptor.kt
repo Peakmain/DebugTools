@@ -2,6 +2,7 @@ package com.peakmain.debug.log
 
 import com.peakmain.basiclibrary.config.BasicLibraryConfig
 import com.peakmain.debug.bean.HttpLoggingBean
+import com.peakmain.debug.manager.HttpLoggingManager
 import com.peakmain.debug.utils.FormatJson
 import com.peakmain.debug.viewmodel.HttpLoggingViewModel
 import com.peakmain.ui.utils.HandlerUtils
@@ -26,12 +27,10 @@ class HttpLoggingInterceptor : Interceptor {
     @Volatile
     private var headersToRedact = emptySet<String>()
     private var mViewModel: HttpLoggingViewModel? = null
-    private var mHttplogginList: MutableList<HttpLoggingBean>? = null
 
     init {
         mViewModel = BasicLibraryConfig.getInstance()?.getApp()?.getViewModelProvider()
             ?.get(HttpLoggingViewModel::class.java)
-        mHttplogginList = ArrayList()
 
     }
 
@@ -174,15 +173,10 @@ class HttpLoggingInterceptor : Interceptor {
             }
         }
         result += "————————请求End————————\n"
-        mHttplogginList?.apply {
-            if (size > 100) {
-                mHttplogginList?.removeAt(size - 1)
-            }
+        HttpLoggingManager.instance.addFirst(mHttpLoggingBean)
+        HandlerUtils.runOnUiThread {
+            mViewModel?.mLoggingMutableList?.value = HttpLoggingManager.instance.getHttpLoggingList()
         }
-        mHttplogginList?.add(0, mHttpLoggingBean)
-        HandlerUtils.runOnUiThread(Runnable {
-            mViewModel?.mLoggingMutableList?.value = mHttplogginList
-        })
         return response
     }
 
