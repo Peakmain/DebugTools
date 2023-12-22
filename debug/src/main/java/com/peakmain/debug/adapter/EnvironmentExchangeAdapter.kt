@@ -33,6 +33,7 @@ internal class EnvironmentExchangeAdapter(
         if (!isClick) {
             if (!android.text.TextUtils.isEmpty(mSaveUrl)) {
                 if (mSaveUrl == itemData.url) {
+                    itemData.isSelected=true
                     defaultSelect(position, itemData)
                 } else {
                     itemData.isSelected = false
