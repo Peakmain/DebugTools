@@ -44,9 +44,9 @@ static def buildTime() {
 dependencies {
     compileOnly files('libs/libbreakpad.aar')
     implementation 'com.google.android.material:material:1.6.1'
-    api 'com.github.Peakmain:BasicLibrary:+'
+    api 'com.github.Peakmain:BasicLibrary:1.1.11'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api 'com.github.Peakmain:BasicUI:+'
+    api 'com.github.Peakmain:BasicUI:1.3.0'
 }
 repositories {
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
